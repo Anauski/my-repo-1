@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="titre">Fiche maisons editions</ui:define>
+
+	<ui:define name="corps">
+
+		<h:form>
+		
+			<p:fieldset legend="Fiche maison editions">
+			
+				<p:panelGrid columns="3">
+				
+					<p:outputLabel for="nom" value="Nom:" />
+					<p:inputText id="nom" value="#{ficheMaisonEditionBean.maisonEdition.nom}" />
+					<p:message for="nom"></p:message>
+				
+					<p:outputLabel for="pays" value="Pays : " />
+					<p:selectOneMenu id="pays" value="#{ficheMaisonEditionBean.maisonEdition.pays}">
+						<f:selectItems value="#{ficheMaisonEditionBean.pays}" var="p" itemValue="#{p}" itemLabel="#{p.libelle}" />
+					</p:selectOneMenu>
+					<p:message for="pays"></p:message>
+					
+					<p:commandButton value="Annuler" styleClass="ui-button-secondary" action="/maisonEdition/liste.xhtml?faces-redirect=true" immediate="true"/>
+					<p:commandButton value="Valider" styleClass="ui-button-primary" actionListener="#{ficheMaisonEditionBean.enregistrer()}" update="@form" action="/maisonEdition/liste.xhtml?faces-redirect=true" />
+				
+				</p:panelGrid>
+			
+			</p:fieldset>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

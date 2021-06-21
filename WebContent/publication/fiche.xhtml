@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      template="/WEB-INF/templates/template.xhtml"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:define name="titre">Fiche Publication</ui:define>
+ 
+ <ui:define name="corps">
+ 	<h:form enctype="multipart/form-data">
+ 		
+ 		<p:fieldset legend="Fiche Publication">
+ 			
+ 			<p:panelGrid columns="3">
+ 				<p:outputLabel for="datePublication" value="Date de publication:"/>
+ 				<p:datePicker id="datePublication" value="#{fichePublicationBean.publication.datePublication}" />
+ 				<p:message for="datePublication"></p:message>
+ 				
+ 				<p:outputLabel for="nbPages" value="Nombres de pages:"></p:outputLabel>
+ 				<p:inputNumber id="nbPages" value="#{fichePublicationBean.publication.nbPages}"></p:inputNumber>
+ 				<p:message for="nbPages"></p:message>
+ 				
+ 				<p:outputLabel for="prix" value="Prix:"/>
+ 				<p:inputNumber id="prix" value="#{fichePublicationBean.publication.prix}" symbol="EUR" decimalPlaces="2" decimalSeparator="," symbolPosition="s"/>
+ 				<p:message for="prix"></p:message>
+ 				
+ 				<p:outputLabel for="langue" value="Langue:" />
+ 				<p:selectOneMenu id="langue" value="#{fichePublicationBean.publication.langue}">
+ 					<f:selectItems value="#{fichePublicationBean.pays}" var="p" itemValue="#{p}" itemLabel="#{p.libelle} - #{p.langue}"/>
+ 				</p:selectOneMenu>
+ 				<p:message for="langue"></p:message>
+ 				
+ 				<p:outputLabel for="oeuvre" value="Oeuvre:"/>
+ 				<p:selectOneMenu id="oeuvre" value="#{fichePublicationBean.publication.oeuvre}" converter="#{genericConverter}">
+ 					<f:selectItems value="#{fichePublicationBean.oeuvres}" var="o" itemValue="#{o}" itemLabel="#{o.nom} (#{o.auteur.nom})"/>
+ 				</p:selectOneMenu>
+ 				<p:message for="oeuvre"></p:message>
+ 				
+ 				<p:outputLabel for="me" value="Maison d'edition:"/>
+ 				<p:selectOneMenu id="me" value="#{fichePublicationBean.}" converter="#{genericConverter}">
+ 					<f:selectItems value="#{fichePublicationBean.melist}" var="m" itemValue="#{m}" itemLabel="#{m.nom}"/>
+ 				</p:selectOneMenu>
+ 				<p:message for="me"></p:message>
+ 				
+ 				<p:outputLabel for="image" value="Image:"/>
+ 				<p:fileUpload skinSimple="true" value="#{fichePublicationBean.image}" id="image" mode="simple"/>
+ 				<p:message for="image"></p:message>
+ 				
+ 				
+ 				<p:outputLabel for="typePublication" value="Type de publication:" />
+ 				<p:selectOneMenu id="typePublication" value="#{fichePublicationBean.publication.typePublication}">
+ 					<f:selectItems value="#{fichePublicationBean.typePublications}" var="t" itemValue="#{t}" itemLabel="#{t.toString()}"/>
+ 				</p:selectOneMenu>
+ 				<p:message for="typePublication"></p:message>
+ 				
+ 				
+ 				<p:commandButton value="Annuler" styleClass="ui-button-secondary" action="/publication/liste.xhtml?faces-redirect=true" immediate="true"/>
+ 				<p:commandButton value="Valider" styleClass="ui-button-primary" actionListener="#{fichePublicationBean.enregistrer()}" action="/publication/liste.xhtml?faces-redirect=true" update="@form"/>
+ 			</p:panelGrid>
+ 		
+ 		</p:fieldset>
+ 	</h:form>
+ 
+ 	
+ </ui:define>
+</ui:composition>

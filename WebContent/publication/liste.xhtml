@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="titre">Liste publication</ui:define>
+
+	<ui:define name="corps">
+
+		<h:form>
+			<p:commandButton icon="pi pi-plus" styleClass="ui-button-primary"
+				value="Créer une nouvelle oeuvre" action="/publication/fiche.xhtml" />
+
+			<p:dataTable var="p" value="#{listePublicationBean.publications}"
+				rowKey="#{p.id}">
+
+				<p:column headerText="Oeuvre">
+					<h:outputText value="#{p.oeuvre.nom}" />
+				</p:column>
+
+				<p:column headerText="Prix">
+					<h:outputText value="#{p.prix.toString()}" />
+				</p:column>
+
+				<p:column headerText="Nombre de pages">
+					<h:outputText value="#{p.nbPages}" />
+				</p:column>
+
+				<p:column headerText="Langue">
+					<h:outputText value="#{p.langue.langue}" />
+				</p:column>
+
+				<p:column headerText="Type de publication">
+					<h:outputText value="#{p.typePublication.toString()}" />
+				</p:column>
+				
+				<p:column headerText="Image">
+					<o:graphicImage value="#{p.image}" dataURI="true" rendered= "#{p.image != null }" style= "max-height:100px" />
+				</p:column>
+				
+				<p:column headerText="Date de publication">
+					<h:outputText value="#{p.datePublication}" />
+				</p:column>
+
+				<p:column headerText="Maison d'edition">
+					<h:outputText value="#{p.maisonEdition.nom}" />
+				</p:column>
+				<p:column headerText="Actions">
+					<p:commandButton icon="pi pi-pencil"
+						styleClass="rounded-button ui-button-primary"
+						actionListener="#{listePublicationBean.modifier(p)}"
+						action="/publication/fiche.xhtml?faces-redirect=true" />
+					<p:commandButton icon="pi pi-times"
+						styleClass="rounded-button ui-button-danger"
+						action="#{listePublicationBean.delete(p)}" update="@form">
+
+						<p:confirm header="Confirmation" message="Etes vous sûre?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+			<p:confirmDialog global="true">
+				<p:commandButton value="Oui" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Non" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

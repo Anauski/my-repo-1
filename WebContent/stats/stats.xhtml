@@ -1,0 +1,23 @@
+<!DOCTYPE html> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      template="/WEB-INF/templates/template.xhtml"
+      xmlns:p="http://primefaces.org/ui"> 
+      
+
+<ui:define name="titre">Statistiques</ui:define>
+
+	<ui:define name="corps">
+
+	<div class="card">
+	    <p:pieChart model="#{statBean.pieModel}" style="width: 100%; height: 500px;"/>
+	</div>
+	<br></br>
+	<div class="card">
+	    <p:barChart model="#{statBean.barModel}" style="width: 100%; height: 500px;"/>
+	</div>
+	
+ </ui:define>
+</ui:composition>

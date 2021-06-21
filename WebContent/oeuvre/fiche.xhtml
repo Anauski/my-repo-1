@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="titre">Fiche oeuvre</ui:define>
+
+	<ui:define name="corps">
+
+		<h:form>
+		
+			<p:fieldset legend="Fiche oeuvre">
+			
+				<p:panelGrid columns="3">
+				
+					<p:outputLabel for="nom" value="Nom:" />
+					<p:inputText id="nom" value="#{ficheOeuvreBean.oeuvre.nom}" />
+					<p:message for="nom"></p:message>
+					
+					<p:outputLabel for="dateEcriture" value="Date d'écriture" />
+					<p:datePicker id="dateEcriture" value="#{ficheOeuvreBean.oeuvre.dateEcriture}" />
+					<p:message for="dateEcriture"></p:message>
+				
+					<p:outputLabel for="auteur" value="Auteur:" />
+					<p:selectOneMenu id="auteur" value="#{ficheOeuvreBean.oeuvre.auteur}" converter="#{genericConverter}">
+						<f:selectItems value="#{ficheOeuvreBean.auteurs}" var="a" itemValue="#{a}" itemLabel="#{a.nom} - #{a.prenom}" />
+					</p:selectOneMenu>
+					<p:message for="auteur"></p:message>
+					
+					<p:commandButton value="Annuler" styleClass="ui-button-secondary" action="/oeuvre/liste.xhtml?faces-redirect=true" immediate="true" />
+					<p:commandButton value="Valider" styleClass="ui-button-primary" actionListener="#{ficheOeuvreBean.enregistrer()}" update="@form" action="/oeuvre/liste.xhtml?faces-redirect=true" />
+				
+				
+				</p:panelGrid>
+			
+			</p:fieldset>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

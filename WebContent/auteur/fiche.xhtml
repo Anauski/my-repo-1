@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="titre">Fiche auteur</ui:define>
+
+	<ui:define name="corps">
+
+		<h:form>
+		
+			<p:fieldset legend="Fiche auteur">
+			
+				<p:panelGrid columns="3">
+				
+					<p:outputLabel for="nom" value="Nom:" />
+					<p:inputText id="nom" value="#{ficheAuteurBean.auteur.nom}" />
+					<p:message for="nom"></p:message>
+				
+					<p:outputLabel for="prenom" value="Prénom:" />
+					<p:inputText id="prenom" value="#{ficheAuteurBean.auteur.prenom}" />
+					<p:message for="prenom"></p:message>
+					
+					<p:outputLabel for="dateNaissance" value="Date de naissance" />
+					<p:datePicker id="dateNaissance" value="#{ficheAuteurBean.auteur.dateNaissance}" />
+					<p:message for="dateNaissance"></p:message>
+				
+					<p:outputLabel for="paysNaissance" value="Pays de naissance:" />
+					<p:selectOneMenu id="paysNaissance" value="#{ficheAuteurBean.auteur.paysNaissance}">
+						<f:selectItems value="#{ficheAuteurBean.pays}" var="p" itemValue="#{p}" itemLabel="#{p.libelle}" />
+					</p:selectOneMenu>
+					<p:message for="paysNaissance"></p:message>
+					
+					<p:commandButton value="Annuler" styleClass="ui-button-secondary" action="/auteur/liste.xhtml?faces-redirect=true" immediate="true"/>
+					<p:commandButton value="Valider" styleClass="ui-button-primary" actionListener="#{ficheAuteurBean.enregistrer()}" update="@form" action="/auteur/liste.xhtml?faces-redirect=true" />
+				
+				</p:panelGrid>
+			
+			</p:fieldset>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
